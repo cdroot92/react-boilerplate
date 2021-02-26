@@ -1,0 +1,9 @@
+.grid_container {
+  display: grid;
+}
+
+.todo {
+  border: solid;
+  margin: 1rem;
+  padding: 1rem;
+}
