@@ -1,4 +1,5 @@
 import React from "react";
+
 import useTodos from "./useTodos";
 import styles from "./Todos.module.css";
 
@@ -17,7 +18,7 @@ function Todos() {
     todo.items.map((item: any, i: number) => {
       return (
         <div key={`item_${i}`} className="item">
-          {item}
+          {item.body}
         </div>
       );
     });
@@ -27,7 +28,7 @@ function Todos() {
       <div>
         <input
           type="text"
-          value={item}
+          value={item.body}
           onChange={(e) => onSetItem(e.target.value)}
         ></input>
         <button onClick={onSetTodo}>+</button>
@@ -36,7 +37,7 @@ function Todos() {
       </div>
       <div>{renderItems(todo)}</div>
       <div>
-        {todos.map((todo) => {
+        {todos?.data.map((todo) => {
           return (
             <div key={`todo_${todo.id}`} className={styles.todo}>
               {renderItems(todo)}
