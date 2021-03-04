@@ -4,11 +4,17 @@ import { RootState } from "../../app/store";
 export interface Todo {
   id?: number;
   items: Item[];
+  tags: Tag[];
 }
 
 export interface Item {
   id?: number;
   body: string;
+}
+
+export interface Tag {
+  id?: number;
+  name: string;
 }
 
 interface TodosState {
