@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
-import { selectTodos, addTodo, setTodos, Todo, Item } from "./todosSlice";
-import { getTodos } from "../../api/todos";
+import { Todo, Item } from "./todosSlice";
+import { getTodos, postTodos } from "../../api/todos";
 
 export default function useTodos() {
   //const todos = useSelector(selectTodos);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
-  const initialTodo: Todo = { items: [] };
+  const initialTodo: Todo = { items: [], tags: [] };
   const initialItem: Item = { body: "" };
   const [todo, setTodo] = useState<Todo>(initialTodo);
   const [item, setItem] = useState<Item>(initialItem);
@@ -19,17 +19,20 @@ export default function useTodos() {
   const { data: todos } = useQuery("getTodos", getTodos);
 
   const onAddTodo = () => {
-    dispatch(addTodo(todo));
+    //dispatch(addTodo(todo));
+    postTodos(todo)
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err));
     onClearTodo();
   };
 
   const onSetTodo = () => {
-    setTodo({ items: todo.items.concat(item) });
+    setTodo({ ...todo, items: todo.items.concat(item) });
     setItem(initialItem);
   };
 
   const onClearTodo = () => {
-    setTodo({ items: [] });
+    setTodo(initialTodo);
     setItem(initialItem);
   };
 
